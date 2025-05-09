@@ -3,10 +3,9 @@ const express = require("express");
 const Stripe = require("stripe");
 const cors = require("cors");
 const app = express();
+require("dotenv").config();
 
-const stripe = Stripe(
-  "sk_test_51R8dizE7OlZnWYDz9jpL7pvOupbuBk2FOhJTau8WTg4lv6pUPKOcxe12RpFYbpozyf7JY0GEgGQLgpoRFQjU6n4F008OzJiYPT"
-); // 🔴 Replace with your Stripe Secret Key
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // 🔴 Replace with your Stripe Secret Key
 
 app.use(cors());
 app.use(express.json());
@@ -50,4 +49,5 @@ app.get("/geting", async (req, res) => {
   res.json("we are on right path");
 });
 
-app.listen(4242, () => console.log("Server running on port 4242"));
+const PORT = process.env.PORT || 4242;
+app.listen(PORT, () => console.log("Server running on port 4242"));
